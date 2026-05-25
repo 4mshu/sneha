@@ -163,7 +163,14 @@
         }
 
         /* --- Hide YT Player --- */
-        #player { position: absolute; visibility: hidden; pointer-events: none; }
+        #player { 
+            position: fixed; 
+            bottom: -100px; 
+            right: -100px; 
+            width: 1px; 
+            height: 1px; 
+            pointer-events: none; 
+        }
 
     </style>
 </head>
@@ -258,7 +265,9 @@
                 width: '0',
                 videoId: 'vBy7FaapGRo', // Your music link
                 playerVars: {
-                    'autoplay': 0,
+                    'autoplay': 1,
+                    'mute': 1,
+                    'playsinline': 1,
                     'controls': 0,
                     'loop': 1,
                     'playlist': 'vBy7FaapGRo'
@@ -270,13 +279,16 @@
         }
 
         function onPlayerReady(event) {
-            // Player is ready, but browser will block autoplay until click
+            event.target.setVolume(100);
         }
 
         // 2. Interaction Handler (Music + Fade Intro)
         const musicTrigger = document.getElementById('music-trigger');
         musicTrigger.addEventListener('click', () => {
-            player.playVideo();
+            if (player && typeof player.unMute === 'function') {
+                player.unMute();
+                player.playVideo();
+            }
             musicTrigger.style.opacity = '0';
             setTimeout(() => {
                 musicTrigger.style.display = 'none';
