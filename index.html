@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 30th Birthday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@200;300&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍑</text></svg>">
+
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-gold: #d4af37;
+            --text-white: #ffffff;
+            --text-dim: #a0a0a0;
+            --serif: 'Playfair Display', serif;
+            --sans: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: var(--serif);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* --- UI Components --- */
+
+        .section {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- Background Images --- */
+        .bg-image {
+        position: absolute; /* Locks the image to the viewport, not the page */
+        top: 0; 
+        left: 0;
+        width: 100vw; /* Uses full viewport width */
+        height: 100vh; /* Uses full viewport height */
+        object-fit: cover;
+        z-index: -1;
+        opacity: 0;
+        transform: scale(1.1);
+        transition: opacity 1.5s ease, transform 10s ease;
+        filter: brightness(0.6);
+        }
+
+        .active .bg-image {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 1; /* Keeps the active image on top during transitions */
+        }
+
+        /* --- Typography --- */
+        .content {
+            max-width: 800px;
+            text-align: center;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .active .content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .message {
+            font-family: var(--serif);
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            font-weight: 300;
+            color: var(--text-white);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gold { color: var(--text-gold); }
+        .italic { font-family: var(--serif); font-style: italic; }
+
+        /* --- Landing Page --- */
+        #landing {
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        #landing h1 {
+            letter-spacing: 10px;
+            animation: glow 3s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255,255,255,0.1); }
+            to { text-shadow: 0 0 20px rgba(212,175,55,0.4); }
+        }
+
+        .scroll-prompt {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* --- Music Overlay (First Interaction) --- */
+        #music-trigger {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .play-btn {
+            padding: 20px 40px;
+            border: 1px solid var(--text-gold);
+            color: var(--text-gold);
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            background: none;
+            transition: 0.3s;
+        }
+
+        /* --- Hide YT Player --- */
+        #player { position: absolute; visibility: hidden; pointer-events: none; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Interaction Trigger for Music -->
+    <div id="music-trigger">
+        <button class="play-btn">For my favorite human<br><small style="font-size: 0.8rem; letter-spacing: 2px;">( Tap to begin )</small></button>
+    </div>
+
+    <!-- Hidden YouTube Audio -->
+    <div id="player"></div>
+
+    <!-- Section 0: Landing -->
+    <section class="section" id="landing">
+        <div class="content">
+            <h1 class="gold">30</h1>
+            <p class="message italic">Happy Birthday, my monkey 🐒</p>
+        </div>
+        <div class="scroll-prompt">Scroll to begin ↓</div>
+    </section>
+
+    <!-- Section 1: First Photo -->
+    <section class="section">
+        <!-- IMAGE: images/photo1.jpg -->
+        <img src="images/E6C26D2B-9C87-44E6-B899-F2B4554121F6_1_105_c.jpeg" class="bg-image" alt="Birthday Girl">
+        <div class="content">
+            <h1 class="italic">Thirty looks so good on you...</h1>
+            <p class="message">But honestly, everything does, even nothi... *gets hit by a train...*</p>
+        </div>
+    </section>
+
+    <!-- Section 2: Pride -->
+    <section class="section">
+        <!-- IMAGE: images/photo2.jpg -->
+        <img src="images/A190A504-3205-43F0-B260-995ACA52A265_1_105_c.jpeg" class="bg-image">
+        <div class="content">
+            <h1>I am so incredibly proud of you.</h1>
+            <p class="message">Not just for the big things, but for the quiet, determined way you show up every single day.</p>
+        </div>
+    </section>
+
+    <!-- Section 3: The Drive (Guitar/Running) -->
+    <section class="section">
+        <!-- IMAGE: images/photo3.jpg -->
+        <img src="images/6FAA56ED-AA2C-4499-B661-62DB70CAA0C4_1_105_c.jpeg" class="bg-image">
+        <div class="content">
+            <h1 class="italic">Your Drive</h1>
+            <p class="message">Watching you pick up the guitar and chase every extra minute off your run, even when you're already impressive at it. You never settle, and you never let me settle either</p>
+        </div>
+    </section>
+
+    <!-- Section 4: Better Person -->
+    <section class="section">
+        <!-- IMAGE: images/photo4.jpg -->
+        <img src="images/D461B09D-E7D0-488A-8234-BCF8C23DBDE1_1_105_c.jpeg" class="bg-image">
+        <div class="content">
+            <h1>A Better Me</h1>
+            <p class="message">Having you in my life has genuinely made me a better person. You call out my bullshit, you got me into saving and investing, running and fitness (partial success).</p>
+        </div>
+    </section>
+
+    <!-- Section 5: The Future -->
+    <section class="section">
+        <!-- IMAGE: images/photo5.jpg -->
+        <img src="images/91764DA6-00C7-473E-B5C8-D363EE1EC551_1_105_c.jpeg" class="bg-image">
+        <div class="content">
+            <h1 class="italic">to the next 60 years...</h1>
+            <p class="message">i've made up my mind to grow old with you, and since i could never out-make the collage from last year, here's an endearing message that I coded using AI</p>
+        </div>
+    </section>
+
+    <!-- Section 6: End Card -->
+    <section class="section" style="background: #000;">
+        <div class="content">
+            <h1 class="gold">Happy 30th ❤️</h1>
+            <p class="message italic" id="final-line">Always yours.</p>
+        </div>
+    </section>
+
+    <script>
+        // 1. YouTube API Implementation
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'vBy7FaapGRo', // Your music link
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'vBy7FaapGRo'
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready, but browser will block autoplay until click
+        }
+
+        // 2. Interaction Handler (Music + Fade Intro)
+        const musicTrigger = document.getElementById('music-trigger');
+        musicTrigger.addEventListener('click', () => {
+            player.playVideo();
+            musicTrigger.style.opacity = '0';
+            setTimeout(() => {
+                musicTrigger.style.display = 'none';
+                document.getElementById('landing').classList.add('active');
+            }, 1000);
+        });
+
+        // 3. Apple-style Scroll Intersection Observer
+        const sections = document.querySelectorAll('.section');
+        const options = {
+            threshold: 0.5 // Trigger when 50% of section is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, options);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // 4. Parallax Effect for Images
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const images = document.querySelectorAll('.bg-image');
+            images.forEach(img => {
+                if (img.parentElement.classList.contains('active')) {
+                    // Subtle movement
+                    img.style.transform = `scale(1.05) translateY(${scrolled * 0.05}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
